@@ -1,0 +1,14 @@
+Criar dicionários com chave=dígito e valor=extenso
+	unidades: de 01 a 19
+	dezena: de 2 a 9 correspondendo de 20 a 90
+	centenas: de 1 a 9 correspondendo de 100 a 900
+	a partir de milhares, será acrescentado a palavra mil
+Separar centavos do inteiro
+Analisar a quantidade de inteiros e separá-los por ponto se não tiver
+Analisar em cada grupo de 3 dígitos, se os dois últimos são >= 20
+	Se sim, o penúltimo entra na lista das dezenas
+	Se não, os dois últimos entram na lista de unidades
+
+
+def split1000(s, sep='.'):
+   return s if len(s) <= 3 else split1000(s[:-3], sep) + sep + s[-3:]
