@@ -5,7 +5,7 @@ unidezena = {"10":"dez", "11":"onze", "12":"doze", "13":"treze", "14":"quatorze"
 
 dezena = {"2":"vinte", "3":"trinta", "4":"quarenta", "5":"cinquenta", "6":"sessenta", "7":"setenta", "8":"oitenta", "9":"noventa"}
 
-centena = {"1":"cem", "2":"duzentos", "3":"trezentos", "4":"quatrocentos", "5":"quinhentos", 
+centena = {"0":"", "1":"cem", "2":"duzentos", "3":"trezentos", "4":"quatrocentos", "5":"quinhentos", 
 			"6":"seiscentos", "7":"setecentos", "8":"oitocentos", "9":"novecentos"}
 
 def digitos_1(num):
@@ -76,5 +76,6 @@ assert(analisa('320')) == "trezentos e vinte"
 assert(analisa('617')) == "seiscentos e dezessete"
 assert(analisa('101')) == "cento e um"
 assert(analisa('701')) == "setecentos e um"
+assert(analisa('011')) == " e onze"
 
-# print(analisa("617"))
+# print(analisa("011"))
