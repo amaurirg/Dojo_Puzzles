@@ -13,69 +13,31 @@ centena = {"1":"cento", "2":"duzentos", "3":"trezentos", "4":"quatrocentos", "5"
 
 # ****************** FUNÇÔES ****************** 
 
+# def inteiro(reais):
+
+
+def centavos(cents):
+	if cents == "um":
+		cents = " e um centavo."
+	else:
+		cents = " e " + cents + " centavos."
+	return cents
+
 
 def extenso(parte_reais, parte_cents):
-	extreais=''
 	# Analisa os centavos
-	texto_cents = analisa(parte_cents)
-	# print(texto_cents)
-	if parte_cents == "00":
-		extcents = "."
-	elif parte_cents == "01":
-		extcents = " e um centavo."
-	else:
-		extcents = " e " + texto_cents + " centavos."
-
 	inteiro = parte_reais.split('.')
 	texto_reais = [analisa(str(i)) for i in inteiro]
-
-	if len(texto_reais) == 1:
-		if texto_reais[-1] == "um":
-			extreais = texto_reais[0] + " real"
-		else:
-			extreais = texto_reais[0] + " reais"
-	elif len(texto_reais) == 2:
-		if texto_reais[-1] == "":
-			extreais = texto_reais[0] + " mil reais"
-		elif texto_reais[-1] == "um":
-			extreais = texto_reais[0] + " mil e " + texto_reais[1] + " reais"
-		else:
-			extreais = texto_reais[0] + " mil, " + texto_reais[1] + " reais"
-	elif len(texto_reais) == 3:
-		# print(texto_reais)
-		# if texto_reais[0] == "um" and texto_reais[1] != "" and texto_reais[2] != "" and texto_reais[-1] != "um":
-		# 	extreais = texto_reais[0] + " milhão, " + texto_reais[1] + " mil, " + texto_reais[2] + " reais"	
-
-		if texto_reais[0] == "um" and texto_reais[1] != "" and texto_reais[2] != "":
-			extreais = texto_reais[0] + " milhão, " + texto_reais[1] + " mil e " + texto_reais[2] + " reais"
-
-		elif texto_reais[0] == "um" and (texto_reais[1] == "" and texto_reais[2] != "" and extcents == "."):
-			extreais = texto_reais[0] + " milhão e " + texto_reais[2] + " reais"
+	texto_cents = [analisa(parte_cents)]
+	# print(texto_reais)
+	# print(texto_cents)
+	texto = texto_reais + texto_cents
+	print(texto)
+	if len(texto) == 1:
+		text_completo = centavos(texto[0])
+	# else:
 		
-		elif texto_reais[0] == "um" and (texto_reais[1] == "" and texto_reais[2] != "" and extcents != "."):
-			extreais = texto_reais[0] + " milhão, " + texto_reais[2] + " reais"
 
-		elif texto_reais[0] == "um" and (texto_reais[1] != "" and texto_reais[2] == "" and extcents == "."):
-			extreais = texto_reais[0] + " milhão e " + texto_reais[1] + " mil reais"
-
-		elif texto_reais[0] == "um" and (texto_reais[1] != "" and texto_reais[2] == "" and extcents != "."):
-			extreais = texto_reais[0] + " milhão, " + texto_reais[1] + " mil reais"
-
-		elif texto_reais[0] == "um" and (texto_reais[1] == "" and texto_reais[2] == ""):
-			extreais = texto_reais[0] + " milhão de reais"	
-
-		else:
-			extreais = texto_reais[0] + " milhões, " + texto_reais[1] + " mil e " + texto_reais[2] + " reais"
-	else:
-		extreais = texto_reais[0] + " bilhões, " + texto_reais[1] + " milhões, " + texto_reais[2] + " mil, " + texto_reais[3] + " reais"
-	
-	
-	texto_completo = extreais.capitalize() + extcents
-	
-	# Para ver o texto impresso
-	print(texto_completo)
-
-	return texto_completo
 
 
 def dois_digitos(num_dez):
@@ -117,8 +79,7 @@ def split1000(s, sep='.'):
 
 def separa(valor):
 	""" Separa os reais dos centavos """
-	# Ainda não verifica se o formato é 123,45(reais,centavos)
-	# print("valor = ", valor)
+	# print(valor)
 	int_cents = str(valor).split(',')
 	inteiro = int_cents[0]
 	centavos = int_cents[1]
@@ -127,6 +88,11 @@ def separa(valor):
 	return inteiro, centavos
 
 
+
+extenso('57.645', '43')
+extenso('57.645', '00')
+extenso('57.645', '01')
+extenso('1', '01')
 
 # ********************************** TESTES **********************************
 
@@ -185,34 +151,33 @@ assert(analisa('617')) == "seiscentos e dezessete"
 assert(analisa('101')) == "cento e um"
 assert(analisa('701')) == "setecentos e um"
 assert(analisa('011')) == "onze"
-"""
 
 # Testes com a função extenso
-# print(extenso('57.645', '43'))
-# assert(extenso('1.234', '56')) == 'Um mil, duzentos e trinta e quatro reais e cinquenta e seis centavos.'
-# assert(extenso('1.001', '89')) == "Um mil e um reais e oitenta e nove centavos."
-# assert(extenso('3.576.984', '32')) == "Três milhões, quinhentos e setenta e seis mil, novecentos e oitenta e quatro reais e trinta e dois centavos."
-# assert(extenso('231.001', '01')) == "Duzentos e trinta e um mil e um reais e um centavo."
-# assert(extenso('001','01')) == "Um real e um centavo."
-# assert(extenso('1.011','01')) == "Um mil, onze reais e um centavo."
-# assert(extenso('231.011', '01')) == "Duzentos e trinta e um mil, onze reais e um centavo."
+print(extenso('57.645', '43'))
+assert(extenso('1.234', '56')) == 'Um mil, duzentos e trinta e quatro reais e cinquenta e seis centavos.'
+assert(extenso('1.001', '89')) == "Um mil e um reais e oitenta e nove centavos."
+assert(extenso('3.576.984', '32')) == "Três milhões, quinhentos e setenta e seis mil, novecentos e oitenta e quatro reais e trinta e dois centavos."
+assert(extenso('231.001', '01')) == "Duzentos e trinta e um mil e um reais e um centavo."
+assert(extenso('001','01')) == "Um real e um centavo."
+assert(extenso('1.011','01')) == "Um mil, onze reais e um centavo."
+assert(extenso('231.011', '01')) == "Duzentos e trinta e um mil, onze reais e um centavo."
 assert(extenso('1.000', '12')) == "Um mil reais e doze centavos."
 assert(extenso('10.000', '00')) == "Dez mil reais."
-
-assert(extenso('1.000.000', '00')) == "Um milhão de reais."
-assert(extenso('1.000.000', '32')) == "Um milhão de reais e trinta e dois centavos."
-assert(extenso('1.000.046', '00')) == "Um milhão e quarenta e seis reais."
-assert(extenso('1.200.000', '00')) == "Um milhão e duzentos mil reais."
+"""
+# assert(extenso('1.000.000', '00')) == "Um milhão de reais."
+# assert(extenso('1.000.000', '32')) == "Um milhão de reais e trinta e dois centavos."
+# assert(extenso('1.000.046', '00')) == "Um milhão e quarenta e seis reais."
+# assert(extenso('1.200.000', '00')) == "Um milhão e duzentos mil reais."
 # assert(extenso('1.032.123', '12')) == "Um milhão, trinta e dois mil, cento e vinte e três reais e doze centavos."
 # assert(extenso('1.450.000', '87')) == "Um milhão, quatrocentos e cinquenta mil reais e oitenta e sete centavos."
 # assert(extenso('1.001.000', '00')) == "Um milhão e um mil reais."
 
 
 # Verificar essa condição
-assert(extenso('1.001.001', '00')) == "Um milhão, um mil e um reais."
-assert(extenso('2.001.001', '00')) == "Dois milhões, um mil e um reais."
-assert(extenso('3.001.011', '00')) == "Três milhões, um mil e onze reais."
-assert(extenso('5.101.000', '00')) == "Cinco milhões, cento e um mil reais."
+# assert(extenso('1.001.001', '00')) == "Um milhão, um mil e um reais."
+# assert(extenso('2.001.001', '00')) == "Dois milhões, um mil e um reais."
+# assert(extenso('3.001.011', '00')) == "Três milhões, um mil e onze reais."
+# assert(extenso('5.101.000', '00')) == "Cinco milhões, cento e um mil reais."
 # assert(extenso('
 # assert(extenso('
 
